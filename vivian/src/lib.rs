@@ -31,8 +31,8 @@ unsafe fn thread_fn() {
     thread::sleep(Duration::from_secs(5));
     util::disable_memory_protection();
 
-    println!("vivian-patch (1.7.0 PROD) is initializing");
-    println!("to work with vivian-rs: https://git.xeondev.com/vivian-rs/vivian-rs");
+    println!("vivian-patch (2.0.4 BETA) is initializing");
+    println!("to work with vivian-rs: https://git.xeondev.com/traffic95/vivian-rs/src/branch/CNBeta2.0.4");
 
     let mut module_manager = NapModuleManager::default();
     module_manager.add::<Network>();

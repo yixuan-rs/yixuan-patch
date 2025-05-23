@@ -7,14 +7,14 @@ use crate::{
     util::{import, GAME_ASSEMBLY_BASE},
 };
 
-import!(rsa_create() -> usize = 0x19034F20);
-import!(rsa_from_xml_string(instance: usize, xml_string: usize) -> usize = 0x19035160);
-import!(il2cpp_string_new(cstr: *const u8) -> usize = 0x1242D60);
+import!(rsa_create() -> usize = 0x1B56B2E0);
+import!(rsa_from_xml_string(instance: usize, xml_string: usize) -> usize = 0x1B56B520);
+import!(il2cpp_string_new(cstr: *const u8) -> usize = 0x115F1B0);
 
 pub unsafe fn initialize_rsa_public_key() {
     const SERVER_PUBLIC_KEY: &str = include_str!("../../server_public_key.xml");
     let rsa_public_key_backdoor_field =
-        ((*(GAME_ASSEMBLY_BASE.wrapping_add(0x4E072F0) as *const usize)) + 235872) as *mut usize;
+        ((*(GAME_ASSEMBLY_BASE.wrapping_add(0x5552100) as *const usize)) + 252792) as *mut usize;
 
     let rsa = rsa_create();
     rsa_from_xml_string(
@@ -44,7 +44,7 @@ pub unsafe fn replace_sdk_public_key_string_literal() {
 pub unsafe fn monitor_network_state(interceptor: &mut Interceptor) {
     interceptor
         .attach(
-            GAME_ASSEMBLY_BASE.wrapping_add(0xAE84F80),
+            GAME_ASSEMBLY_BASE.wrapping_add(0xD8AAEC0),
             on_network_state_change,
         )
         .unwrap();

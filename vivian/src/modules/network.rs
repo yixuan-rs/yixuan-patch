@@ -2,11 +2,12 @@ use std::ffi::CString;
 
 use ilhook::x64::Registers;
 
-use crate::util::{self, import};
+use crate::util::{self, import, read_csharp_string};
 
 use super::{ModuleInitError, NapModule, NapModuleContext};
 
-const MAKE_INITIAL_URL: usize = 0x1ACB6C70;
+const MAKE_INITIAL_URL: usize = 0x1D1458E0;
+const WEB_REQUEST_CREATE: usize = 0x1CC2D2A0;
 
 pub struct Network;
 
@@ -17,11 +18,26 @@ impl NapModule for NapModuleContext<Network> {
             Network::on_make_initial_url,
         )?;
 
+        self.interceptor.attach(
+            self.base.wrapping_add(WEB_REQUEST_CREATE),
+            on_web_request_create,
+        )?;
+
         Ok(())
     }
 }
 
-import!(il2cpp_string_new(cstr: *const u8) -> usize = 0x1242D60);
+unsafe extern "win64" fn on_web_request_create(reg: *mut Registers, _: usize) {
+    let s = read_csharp_string((*reg).rcx as usize);
+    if s.contains("StandaloneWindows64/cn/") {
+        let s = s.replace("StandaloneWindows64/cn/", "StandaloneWindows64/oversea/");
+        println!("replaced: {s}");
+        (*reg).rcx =
+            il2cpp_string_new(CString::new(s).unwrap().to_bytes_with_nul().as_ptr()) as u64;
+    }
+}
+
+import!(il2cpp_string_new(cstr: *const u8) -> usize = 0x115F1B0);
 
 impl Network {
     const SDK_URL: &str = "http://127.0.0.1:20100";

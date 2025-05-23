@@ -4,10 +4,10 @@ use crate::util::GAME_ASSEMBLY_BASE;
 
 use super::{ModuleInitError, NapModule, NapModuleContext};
 
-const ON_COMBO_INIT_SUCCESS: usize = 0x18AE4030;
-const STATICS: usize = 0x4E072F0;
-const STATIC_ID: usize = 34344;
-const FIELD_OFFSET: usize = 0x48;
+const ON_COMBO_INIT_SUCCESS: usize = 0x1ACA72F0;
+const STATICS: usize = 0x5552100;
+const STATIC_ID: usize = 34512;
+const FIELD_OFFSET: usize = 64;
 
 pub struct HoyopassPatch;
 
