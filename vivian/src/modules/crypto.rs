@@ -33,7 +33,7 @@ pub unsafe fn initialize_rsa_public_key() {
 pub unsafe fn replace_sdk_public_key_string_literal() {
     const SDK_PUBLIC_KEY: &str = include_str!("../../sdk_public_key.xml");
 
-    *(GAME_ASSEMBLY_BASE.wrapping_add(0x53D49C0) as *mut usize) = il2cpp_string_new(
+    *(GAME_ASSEMBLY_BASE.wrapping_add(0x5954398) as *mut usize) = il2cpp_string_new(
         CString::new(SDK_PUBLIC_KEY)
             .unwrap()
             .to_bytes_with_nul()
