@@ -2,6 +2,7 @@ use std::{thread, time::Duration};
 
 use interceptor::Interceptor;
 use modules::{
+    censorship_patch::CensorshipPatch,
     crypto::{
         initialize_rsa_public_key, monitor_network_state, replace_sdk_public_key_string_literal,
     },
@@ -32,11 +33,15 @@ unsafe fn thread_fn() {
     util::disable_memory_protection();
 
     println!("vivian-patch (2.0.4 BETA) is initializing");
-    println!("to work with vivian-rs: https://git.xeondev.com/traffic95/vivian-rs/src/branch/CNBeta2.0.4");
+
+    println!(
+        "to work with vivian-rs: https://git.xeondev.com/vivian-rs/vivian-rs/src/branch/2.0_beta"
+    );
 
     let mut module_manager = NapModuleManager::default();
     module_manager.add::<Network>();
     module_manager.add::<HoyopassPatch>();
+    module_manager.add::<CensorshipPatch>();
     module_manager.init().expect("failed to initialize modules");
 
     initialize_rsa_public_key();

@@ -2,6 +2,7 @@ use std::marker::PhantomData;
 
 use crate::{interceptor::Interceptor, util};
 
+pub mod censorship_patch;
 pub mod crypto;
 pub mod hoyopass_patch;
 pub mod network;
