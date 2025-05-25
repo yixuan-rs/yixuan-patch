@@ -34,8 +34,10 @@ impl NapModule for NapModuleContext<CensorshipPatch> {
 impl CensorshipPatch {
     pub unsafe extern "win64" fn on_set_dither_config(reg: *mut Registers, _: usize) {
         if LAST_ENTER_SCENE_TYPE.load(Ordering::SeqCst) == SCENE_TYPE_HALL {
-            println!("SetDitherConfig: disabling dither alpha");
-            *(((*reg).rdx as *mut u8).wrapping_add(DITHER_CONFIG_AVATAR_USING_DITHER_ALPHA)) = 0;
+            if (*reg).rdx != 0 {
+                println!("SetDitherConfig: disabling dither alpha");
+                *(((*reg).rdx as *mut u8).wrapping_add(DITHER_CONFIG_AVATAR_USING_DITHER_ALPHA)) = 0;
+            }
         } else {
             println!("SetDitherConfig: not in hall, ignoring");
         }
