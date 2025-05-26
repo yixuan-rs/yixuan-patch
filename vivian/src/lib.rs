@@ -32,11 +32,13 @@ unsafe fn thread_fn() {
     thread::sleep(Duration::from_secs(5));
     util::disable_memory_protection();
 
-    println!("vivian-patch (2.0.4 BETA) is initializing");
+    println!("vivian-patch (2.0.5 BETA) is initializing");
 
     println!(
         "to work with vivian-rs: https://git.xeondev.com/vivian-rs/vivian-rs/src/branch/2.0_beta"
     );
+
+    println!("\nJoin us on Discord at https://discord.gg/reversedrooms\n\n\n");
 
     let mut module_manager = NapModuleManager::default();
     module_manager.add::<Network>();
