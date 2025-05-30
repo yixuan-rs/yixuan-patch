@@ -6,8 +6,8 @@ use crate::util::{self, import, read_csharp_string};
 
 use super::{ModuleInitError, NapModule, NapModuleContext};
 
-const MAKE_INITIAL_URL: usize = 0x1D172280;
-const WEB_REQUEST_CREATE: usize = 0x1CC5EC00;
+const MAKE_INITIAL_URL: usize = 0x1D17D450;
+const WEB_REQUEST_CREATE: usize = 0x1CC6BD90;
 
 pub struct Network;
 
@@ -37,7 +37,7 @@ unsafe extern "win64" fn on_web_request_create(reg: *mut Registers, _: usize) {
     }
 }
 
-import!(il2cpp_string_new(cstr: *const u8) -> usize = 0x1158AA0);
+import!(il2cpp_string_new(cstr: *const u8) -> usize = 0x1162FC0);
 
 impl Network {
     const SDK_URL: &str = "http://127.0.0.1:20100";

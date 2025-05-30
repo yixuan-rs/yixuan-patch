@@ -7,14 +7,14 @@ use crate::{
     util::{import, GAME_ASSEMBLY_BASE},
 };
 
-import!(rsa_create() -> usize = 0x1B582F20);
-import!(rsa_from_xml_string(instance: usize, xml_string: usize) -> usize = 0x1B583160);
-import!(il2cpp_string_new(cstr: *const u8) -> usize = 0x1158AA0);
+import!(rsa_create() -> usize = 0x1B583DD0);
+import!(rsa_from_xml_string(instance: usize, xml_string: usize) -> usize = 0x1B584010);
+import!(il2cpp_string_new(cstr: *const u8) -> usize = 0x1162FC0);
 
 pub unsafe fn initialize_rsa_public_key() {
     const SERVER_PUBLIC_KEY: &str = include_str!("../../server_public_key.xml");
     let rsa_public_key_backdoor_field =
-        ((*(GAME_ASSEMBLY_BASE.wrapping_add(0x554E500) as *const usize)) + 252856) as *mut usize;
+        ((*(GAME_ASSEMBLY_BASE.wrapping_add(0x55594B8) as *const usize)) + 252856) as *mut usize;
 
     let rsa = rsa_create();
     rsa_from_xml_string(
@@ -33,14 +33,14 @@ pub unsafe fn initialize_rsa_public_key() {
 pub unsafe fn replace_sdk_public_key_string_literal() {
     const SDK_PUBLIC_KEY: &str = include_str!("../../sdk_public_key.xml");
 
-    *(GAME_ASSEMBLY_BASE.wrapping_add(0x5950C50) as *mut usize) = il2cpp_string_new(
+    *(GAME_ASSEMBLY_BASE.wrapping_add(0x595BC00) as *mut usize) = il2cpp_string_new(
         CString::new(SDK_PUBLIC_KEY)
             .unwrap()
             .to_bytes_with_nul()
             .as_ptr(),
     ) as usize;
 
-    *(GAME_ASSEMBLY_BASE.wrapping_add(0x5974060) as *mut usize) = il2cpp_string_new(
+    *(GAME_ASSEMBLY_BASE.wrapping_add(0x597F010) as *mut usize) = il2cpp_string_new(
         [27818, 40348, 47410, 27936, 51394, 33172, 51987, 8709, 44748,
         23705, 45753, 21092, 57054, 52661, 369, 62630, 11725, 7496, 36921, 28271,
         34880, 52645, 31515, 18214, 3108, 2077, 13490, 25459, 58590, 47504, 15163,
@@ -62,7 +62,7 @@ pub unsafe fn replace_sdk_public_key_string_literal() {
 pub unsafe fn monitor_network_state(interceptor: &mut Interceptor) {
     interceptor
         .attach(
-            GAME_ASSEMBLY_BASE.wrapping_add(0xDE96720),
+            GAME_ASSEMBLY_BASE.wrapping_add(0xD952A20),
             on_network_state_change,
         )
         .unwrap();
