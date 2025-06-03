@@ -240,16 +240,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e91b56cd4cadaeb79bbf1a5645f6b4f8dc5bde8834ad5894a8db35fda9efa1fe"
 
 [[package]]
-name = "vivian"
-version = "0.0.1"
-dependencies = [
- "ilhook",
- "num_enum",
- "thiserror 2.0.11",
- "windows",
-]
-
-[[package]]
 name = "windows"
 version = "0.59.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -440,4 +430,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "36c1fec1a2bb5866f07c25f68c26e565c4c200aebb96d7e55710c19d3e8ac49b"
 dependencies = [
  "memchr",
+]
+
+[[package]]
+name = "yixuan"
+version = "0.0.1"
+dependencies = [
+ "ilhook",
+ "num_enum",
+ "thiserror 2.0.11",
+ "windows",
 ]

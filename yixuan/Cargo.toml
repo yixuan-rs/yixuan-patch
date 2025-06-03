@@ -1,10 +1,10 @@
 [package]
-name = "vivian"
+name = "yixuan"
 edition = "2021"
 version.workspace = true
 
 [lib]
-name = "vivian"
+name = "yixuan"
 crate-type = ["cdylib"]
 
 [dependencies]

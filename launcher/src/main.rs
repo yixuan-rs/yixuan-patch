@@ -12,8 +12,8 @@ use windows::Win32::System::Threading::{
     PROCESS_INFORMATION, STARTUPINFOA,
 };
 
-const GAME_EXECUTABLE: PCSTR = s!("ZenlessZoneZeroBeta.exe");
-const INJECT_DLL: &str = "vivian.dll";
+const GAME_EXECUTABLE: PCSTR = s!("ZenlessZoneZero.exe");
+const INJECT_DLL: &str = "yixuan.dll";
 
 fn inject_standard(h_target: HANDLE, dll_path: &str) -> bool {
     unsafe {
