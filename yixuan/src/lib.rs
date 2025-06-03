@@ -2,6 +2,7 @@ use std::{thread, time::Duration};
 
 use interceptor::Interceptor;
 use modules::{
+    censorship_patch::CensorshipPatch,
     crypto::{
         initialize_rsa_public_key, monitor_network_state, replace_sdk_public_key_string_literal,
     },
@@ -31,12 +32,18 @@ unsafe fn thread_fn() {
     thread::sleep(Duration::from_secs(5));
     util::disable_memory_protection();
 
-    println!("vivian-patch (1.7.0 PROD) is initializing");
-    println!("to work with vivian-rs: https://git.xeondev.com/vivian-rs/vivian-rs");
+    println!("yixuan-patch (2.0.0 PROD) is initializing");
+
+    println!(
+        "to work with yixuan-rs: https://git.xeondev.com/yixuan-rs/yixuan-rs"
+    );
+
+    println!("\nJoin us on Discord at https://discord.gg/reversedrooms\n\n\n");
 
     let mut module_manager = NapModuleManager::default();
     module_manager.add::<Network>();
     module_manager.add::<HoyopassPatch>();
+    module_manager.add::<CensorshipPatch>();
     module_manager.init().expect("failed to initialize modules");
 
     initialize_rsa_public_key();
