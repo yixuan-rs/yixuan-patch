@@ -6,6 +6,7 @@ use super::{ModuleInitError, NapModule, NapModuleContext};
 const SET_DITHER_CONFIG: usize = 0x8CA93D0;
 const DITHER_CONFIG_AVATAR_USING_DITHER_ALPHA: usize = 0x49;
 
+const ON_ENTER_BIG_SCENE_SC_NOTIFY: usize = 0x104721E0;
 const ON_ENTER_SCENE_SC_NOTIFY: usize = 0x86E6F80;
 const ENTER_SCENE_SC_NOTIFY_SCENE_DATA: usize = 0x10;
 const SCENE_DATA_SCENE_TYPE: usize = 0x74;
@@ -27,6 +28,11 @@ impl NapModule for NapModuleContext<CensorshipPatch> {
             CensorshipPatch::on_enter_scene_sc_notify,
         )?;
 
+        self.interceptor.attach(
+            self.base.wrapping_add(ON_ENTER_BIG_SCENE_SC_NOTIFY),
+            CensorshipPatch::on_enter_big_scene_sc_notify,
+        )?;
+
         Ok(())
     }
 }
@@ -36,7 +42,8 @@ impl CensorshipPatch {
         if LAST_ENTER_SCENE_TYPE.load(Ordering::SeqCst) == SCENE_TYPE_HALL {
             if (*reg).rdx != 0 {
                 println!("SetDitherConfig: disabling dither alpha");
-                *(((*reg).rdx as *mut u8).wrapping_add(DITHER_CONFIG_AVATAR_USING_DITHER_ALPHA)) = 0;
+                *(((*reg).rdx as *mut u8).wrapping_add(DITHER_CONFIG_AVATAR_USING_DITHER_ALPHA)) =
+                    0;
             }
         } else {
             println!("SetDitherConfig: not in hall, ignoring");
@@ -55,5 +62,11 @@ impl CensorshipPatch {
         println!("EnterSceneScNotify scene_type: {scene_type}");
 
         LAST_ENTER_SCENE_TYPE.store(scene_type, Ordering::SeqCst);
+    }
+
+    pub unsafe extern "win64" fn on_enter_big_scene_sc_notify(_: *mut Registers, _: usize) {
+        println!("EnterBigSceneScNotify");
+
+        LAST_ENTER_SCENE_TYPE.store(0, Ordering::SeqCst);
     }
 }
