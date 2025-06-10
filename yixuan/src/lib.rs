@@ -32,10 +32,10 @@ unsafe fn thread_fn() {
     thread::sleep(Duration::from_secs(5));
     util::disable_memory_protection();
 
-    println!("yixuan-patch (2.0.0 PROD) is initializing");
+    println!("yixuan-patch (2.1.1 BETA) is initializing");
 
     println!(
-        "to work with yixuan-rs: https://git.xeondev.com/yixuan-rs/yixuan-rs"
+        "to work with yixuan-rs: https://git.xeondev.com/yixuan-rs/yixuan-rs/src/branch/2.1_beta"
     );
 
     println!("\nJoin us on Discord at https://discord.gg/reversedrooms\n\n\n");

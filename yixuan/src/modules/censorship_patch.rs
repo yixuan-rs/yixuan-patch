@@ -3,13 +3,13 @@ use std::sync::atomic::{AtomicU32, Ordering};
 
 use super::{ModuleInitError, NapModule, NapModuleContext};
 
-const SET_DITHER_CONFIG: usize = 0x8CA93D0;
-const DITHER_CONFIG_AVATAR_USING_DITHER_ALPHA: usize = 0x49;
+const SET_DITHER_CONFIG: usize = 0x19BF3070;
+const DITHER_CONFIG_AVATAR_USING_DITHER_ALPHA: usize = 0x4C;
 
-const ON_ENTER_BIG_SCENE_SC_NOTIFY: usize = 0x104721E0;
-const ON_ENTER_SCENE_SC_NOTIFY: usize = 0x86E6F80;
-const ENTER_SCENE_SC_NOTIFY_SCENE_DATA: usize = 0x10;
-const SCENE_DATA_SCENE_TYPE: usize = 0x74;
+const ON_ENTER_BIG_SCENE_SC_NOTIFY: usize = 0x9CE9460;
+const ON_ENTER_SCENE_SC_NOTIFY: usize = 0xB12BEF0;
+const ENTER_SCENE_SC_NOTIFY_SCENE_DATA: usize = 0x18;
+const SCENE_DATA_SCENE_TYPE: usize = 0x6C;
 const SCENE_TYPE_HALL: u32 = 1;
 
 static LAST_ENTER_SCENE_TYPE: AtomicU32 = AtomicU32::new(0);
